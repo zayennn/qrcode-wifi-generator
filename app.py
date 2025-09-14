@@ -61,7 +61,6 @@ def download():
     if not payload:
         return redirect(url_for("index"))
     img_buf = generate_qr_image(payload)
-    # send as attachment
     return send_file(
         img_buf,
         mimetype="image/png",
