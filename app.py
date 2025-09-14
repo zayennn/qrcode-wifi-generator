@@ -10,8 +10,6 @@ def make_wifi_payload(ssid: str, password: str, auth: str, hidden: bool=False) -
     """
     Format payload sesuai standard: WIFI:T:<WPA|WEP|nopass>;S:<ssid>;P:<password>;H:<true|false>;;
     """
-    # sanitize minimal (escaping ; , : \ etc isn't usually necessary for common SSID/passwords,
-    # but for safety replace trailing double-semicols handled by format)
     ssid_escaped = ssid.replace('"', '\\"')
     password_escaped = password.replace('"', '\\"')
     hidden_str = "true" if hidden else "false"
