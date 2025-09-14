@@ -4,64 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Wi-Fi QR Generator — rumah</title>
-    <style>
-      body {
-        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial;
-        background: #f5f7fb;
-        color: #111;
-        padding: 28px;
-      }
-      .card {
-        background: white;
-        max-width: 720px;
-        margin: 24px auto;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 8px 30px rgba(11, 15, 30, 0.06);
-      }
-      label {
-        display: block;
-        margin-top: 10px;
-        font-weight: 600;
-      }
-      input,
-      select {
-        width: 100%;
-        padding: 10px;
-        margin-top: 6px;
-        border-radius: 8px;
-        border: 1px solid #e3e7ee;
-      }
-      .row {
-        display: flex;
-        gap: 10px;
-      }
-      .col {
-        flex: 1;
-      }
-      button {
-        margin-top: 12px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        border: 0;
-        background: #0b5cff;
-        color: white;
-        font-weight: 700;
-        cursor: pointer;
-      }
-      .qr {
-        text-align: center;
-        margin-top: 16px;
-      }
-      .muted {
-        color: #666;
-        font-size: 13px;
-      }
-      .small {
-        font-size: 13px;
-      }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
     <div class="card">
