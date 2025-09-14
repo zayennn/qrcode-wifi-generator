@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wi-Fi QR Generator — rumah</title>
+    <style>
+      body {
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: #f5f7fb;
+        color: #111;
+        padding: 28px;
+      }
+      .card {
+        background: white;
+        max-width: 720px;
+        margin: 24px auto;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 30px rgba(11, 15, 30, 0.06);
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #e3e7ee;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+      }
+      .col {
+        flex: 1;
+      }
+      button {
+        margin-top: 12px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 0;
+        background: #0b5cff;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .qr {
+        text-align: center;
+        margin-top: 16px;
+      }
+      .muted {
+        color: #666;
+        font-size: 13px;
+      }
+      .small {
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Wi-Fi QR Generator — gampang, tinggal scan</h2>
+      <p class="muted">
+        Masukkan SSID & password Wi-Fi rumah, pilih security. QR akan terbentuk
+        — scan aja pakai HP.
+      </p>
+
+      <form method="post" action="/generate">
+        <label>Nama Wi-Fi (SSID)</label>
+        <input name="ssid" placeholder="Contoh: Rumah-Zayen" required />
+
+        <label>Password</label>
+        <input
+          name="password"
+          placeholder="Ketik password (kosongkan kalau open)"
+        />
+
+        <div class="row">
+          <div class="col">
+            <label>Security</label>
+            <select name="auth">
+              <option value="WPA">WPA/WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">No password / Open</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Hidden SSID?</label>
+            <select name="hidden">
+              <option value="">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit">Generate QR</button>
+      </form>
+
+      {% if qr_b64 %}
+      <div class="qr">
+        <h3>Scan ini buat langsung connect</h3>
+        <img
+          src="data:image/png;base64,{{ qr_b64 }}"
+          alt="WiFi QR"
+          style="
+            max-width: 320px;
+            border-radius: 8px;
+            background: white;
+            padding: 8px;
+          "
+        />
+        <p class="small muted">
+          Payload:
+          <code style="background: #f2f4f7; padding: 6px; border-radius: 6px"
+            >{{ payload }}</code
+          >
+        </p>
+
+        <form
+          method="post"
+          action="/download"
+          style="display: inline-block; margin-top: 10px"
+        >
+          <input type="hidden" name="payload" value="{{ payload }}" />
+          <button type="submit">Download PNG</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+    <p style="text-align: center; color: #888; font-size: 12px">
+      Generated with ❤️ — jangan share password kalau nggak mau drama
+    </p>
+  </body>
+</html>
