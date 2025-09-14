@@ -53,12 +53,10 @@ def generate():
     timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     filename = f"wifi_qr_{ssid}_{timestamp}.png"
 
-    # store image bytes in sessionless way: pass via query? simpler: render with b64 and include hidden form to download
     return render_template("index.html", qr_b64=b64, payload=payload, filename=filename)
 
 @app.route("/download", methods=["POST"])
 def download():
-    # receives payload string and regenerates PNG to send as file
     payload = request.form.get("payload", "")
     if not payload:
         return redirect(url_for("index"))
